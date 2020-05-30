@@ -1,9 +1,7 @@
 ESTRUCTURA = itree
 FLAGS = -Wall -Wextra -Werror -std=c99 -g
 
-all: 
-
-build: $(ESTRUCTURA).o main
+all: $(ESTRUCTURA).o main
 
 $(ESTRUCTURA).o: $(ESTRUCTURA).c $(ESTRUCTURA).h
 	gcc $(FLAGS) -c $(ESTRUCTURA).c
