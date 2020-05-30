@@ -8,3 +8,9 @@
  - [ ] Implementar menú de uso del programa
  - [ ] Hacer informe
  - [ ] Hacer consultas para no tomar decisiones de diseño :)
+
+## Consultas:
+ - Usar punteros para estructura Intervalos
+ 
+## Decisiones de diseño:
+ - 
