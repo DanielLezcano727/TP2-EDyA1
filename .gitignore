@@ -1,4 +1,3 @@
 *.o
-src/main.c
-src/main
+main
 vgcore*
