@@ -8,9 +8,14 @@
  - [ ] Implementar menú de uso del programa
  - [ ] Hacer informe
  - [ ] Hacer consultas para no tomar decisiones de diseño :)
+ - [ ] Repensar nombres estructuras
+ - 
 
 ## Consultas:
  - Usar punteros para estructura Intervalos
+ - Usar funcionVisitante en itree.c en lugar de printf
+ - 
  
 ## Decisiones de diseño:
- - 
+ - Crear funcion itree_crear_nodo para aligerar itree_insertar
+ 
