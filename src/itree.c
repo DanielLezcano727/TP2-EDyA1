@@ -38,7 +38,7 @@ double itree_max_aux(double maySub, ITree nodo2){
 }
 
 double itree_max_sub(ITree nodo){
-  return itree_max_aux(itree_max_aux(nodo->maySub, nodo->left), nodo->right);
+  return itree_max_aux(itree_max_aux(nodo->intervalo->end, nodo->left), nodo->right);
 }
 
 ITree itree_rotacion_simple_der(ITree arbol){
@@ -94,16 +94,53 @@ ITree itree_insertar(ITree arbol, Interval intervalo) {
     arbol->right = NULL;
   }else if(intervalo->bgn < arbol->intervalo->bgn){
     arbol->left = itree_insertar(arbol->left, intervalo);
-    
     arbol->maySub = itree_max_sub(arbol);
     if(itree_balance_factor(arbol) < -1)
       arbol = itree_balancear_izq(arbol);
   }else{
-    arbol->right = itree_insertar(arbol->right, intervalo);
-    
+    arbol->right = itree_insertar(arbol->right, intervalo);    
     arbol->maySub = itree_max_sub(arbol);
     if(itree_balance_factor(arbol) > 1)
       arbol = itree_balancear_der(arbol);
+  }
+  return arbol;
+}
+
+ITree itree_minimo(ITree arbol) {
+  if(arbol->left != NULL)
+    return itree_minimo(arbol->left);
+  return arbol;
+}
+
+ITree itree_eliminar(ITree arbol, Interval intervalo){
+  if(arbol != NULL){
+    if(arbol->intervalo->bgn == intervalo->bgn && arbol->intervalo->end == intervalo->end){
+      ITree aux;
+      if(arbol->left == NULL && arbol->right == NULL)
+        aux = NULL;
+      else if(arbol->left == NULL)
+        aux = arbol->right;
+      else if(arbol->right == NULL)
+        aux = arbol->left;
+      else{
+        aux = itree_minimo(arbol->right);
+        aux = itree_eliminar(aux->right, aux->intervalo);
+        aux->maySub = itree_max_sub(aux);
+      }
+      free(arbol);
+      return aux;
+    }
+    if(intervalo->bgn < arbol->intervalo->bgn){
+      arbol->left = itree_eliminar(arbol->left, intervalo);
+      arbol->maySub = itree_max_sub(arbol);
+      if(itree_balance_factor(arbol) > 1)
+        arbol = itree_balancear_der(arbol);
+    }else{
+      arbol->right = itree_eliminar(arbol->right, intervalo);
+      arbol->maySub = itree_max_sub(arbol);
+      if(itree_balance_factor(arbol) < -1)
+        arbol = itree_balancear_izq(arbol);
+    }
   }
   return arbol;
 }
