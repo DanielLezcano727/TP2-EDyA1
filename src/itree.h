@@ -2,13 +2,15 @@
 #define __ITREE_H__
 
 typedef struct _Interval {
-  int bgn;
-  int end;
-  int maySub;
-}Interval;
+  double bgn;
+  double end;
+}IntervalStruct;
+
+typedef IntervalStruct *Interval;
 
 typedef struct _INode {
-  Interval datos;
+  Interval intervalo;
+  double maySub;
   struct _INode* left;
   struct _INode* right; 
 }INode;
@@ -19,16 +21,18 @@ ITree itree_crear();
 
 void itree_destruir(ITree arbol);
 
-ITree itree_insertar(ITree arbol, Interval datos);
+int itree_altura(ITree arbol);
 
-ITree itree_eliminar(ITree arbol, Interval datos);
+int itree_balance_factor(ITree arbol);
 
-INode itree_intersectar(ITree arbol, Interval datos);
+ITree itree_insertar(ITree arbol, Interval intervalo);
+
+ITree itree_eliminar(ITree arbol, Interval intervalo);
+
+Interval itree_intersectar(ITree arbol, Interval intervalo);
 
 void itree_recorrer_dfs(ITree arbol);
 
 void itree_recorrer_bfs(ITree arbol);
-
-int intersectar(Interval i1, Interval i2);
 
 #endif
