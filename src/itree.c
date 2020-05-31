@@ -31,21 +31,14 @@ int itree_balance_factor(ITree arbol){
   return itree_altura(arbol->right) - itree_altura(arbol->left);
 }
 
-double itree_max_sub_aux(ITree nodo){
-  if(nodo->left == NULL)
-    return nodo->right->maySub;
-  else if(nodo->right == NULL)
-    return nodo->left->maySub;
-  return nodo->left->maySub > nodo->right->maySub ? nodo->left->maySub : nodo->right->maySub;
+double itree_max_aux(ITree nodo1, ITree nodo2){
+  if(nodo2 == NULL)
+    return nodo1->maySub;
+  return nodo1->maySub > nodo2->maySub ? nodo1->maySub : nodo2->maySub;
 }
 
-double itree_max_sub(ITree nodo) {
-  if(nodo->left == NULL && nodo->right == NULL)
-    return nodo->maySub;
-  else {
-    double aux = itree_max_sub_aux(nodo);
-    return nodo->maySub > aux ? nodo->maySub : aux;
-  }
+double itree_max_sub(ITree nodo){
+  return itree_max_aux(itree_max_aux(nodo, nodo->left), nodo->right);
 }
 
 ITree itree_rotacion_simple_der(ITree arbol){
