@@ -3,7 +3,7 @@
 ## Tareas:
  - [X] Decidir estructura para los intervalos
  - [X] Implementar arbol AVL de *inserte estructura de intervalos*
- - [ ] Implementar función eliminar_nodo para arboles AVL
+ - [X] Implementar función eliminar_nodo para arboles AVL
  - [X] Implementar funciones para buscar intersecciones en un AVL
  - [ ] Implementar menú de uso del programa
  - [ ] Hacer informe
