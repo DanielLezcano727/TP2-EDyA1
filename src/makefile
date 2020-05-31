@@ -8,3 +8,6 @@ $(ESTRUCTURA).o: $(ESTRUCTURA).c $(ESTRUCTURA).h
 
 main: main.c $(ESTRUCTURA).o
 	gcc $(FLAGS) -o main ./main.c $(ESTRUCTURA).o
+
+clean: 
+	rm *.o main vgcore*

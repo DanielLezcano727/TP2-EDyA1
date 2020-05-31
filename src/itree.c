@@ -31,14 +31,14 @@ int itree_balance_factor(ITree arbol){
   return itree_altura(arbol->right) - itree_altura(arbol->left);
 }
 
-double itree_max_aux(ITree nodo1, ITree nodo2){
+double itree_max_aux(double maySub, ITree nodo2){
   if(nodo2 == NULL)
-    return nodo1->maySub;
-  return nodo1->maySub > nodo2->maySub ? nodo1->maySub : nodo2->maySub;
+    return maySub;
+  return maySub > nodo2->maySub ? maySub : nodo2->maySub;
 }
 
 double itree_max_sub(ITree nodo){
-  return itree_max_aux(itree_max_aux(nodo, nodo->left), nodo->right);
+  return itree_max_aux(itree_max_aux(nodo->maySub, nodo->left), nodo->right);
 }
 
 ITree itree_rotacion_simple_der(ITree arbol){
@@ -84,8 +84,6 @@ ITree itree_balancear_der(ITree arbol){
 }
 
 ITree itree_insertar(ITree arbol, Interval intervalo) {
-  double auxDouble;
-
   if(arbol == NULL){
     arbol = malloc(sizeof(INode));
     arbol->intervalo = malloc(sizeof(IntervalStruct));
