@@ -19,4 +19,5 @@
  
 ## Decisiones de diseño:
  - Crear funcion itree_crear_nodo para aligerar itree_insertar
+ - En itree_eliminar, revisar el doble return de arbol y aux
  
