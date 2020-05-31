@@ -47,8 +47,21 @@ int main(){
     }else {
         printf("[%f, %f]\n", intervalo->bgn, intervalo->end);
     }
-    intervalo->bgn = 90;
-    intervalo->end = 90;
+
+    // intervalo->bgn = 90;
+    // intervalo->end = 90;
+    // // free(intervalo);
+    // intervalo = itree_intersectar(raiz, intervalo);
+    // if(!intervalo) {
+    //     printf("No hay intersecciones\n");
+    // }else {
+    //     printf("[%f, %f]\n", intervalo->bgn, intervalo->end);
+    // }
+
+    //el caso anterior vuelve a intervalo = NULL
+
+    intervalo->bgn = 25;
+    intervalo->end = 25;
     // free(intervalo);
     intervalo = itree_intersectar(raiz, intervalo);
     if(!intervalo) {
@@ -56,8 +69,9 @@ int main(){
     }else {
         printf("[%f, %f]\n", intervalo->bgn, intervalo->end);
     }
-    intervalo->bgn = 6;
-    intervalo->end = 6;
+
+    intervalo->bgn = 26;
+    intervalo->end = 26;
     // free(intervalo);
     intervalo = itree_intersectar(raiz, intervalo);
     if(!intervalo) {
@@ -65,6 +79,7 @@ int main(){
     }else {
         printf("[%f, %f]\n", intervalo->bgn, intervalo->end);
     }
+
     intervalo->bgn = 22;
     intervalo->end = 22;
     // free(intervalo);

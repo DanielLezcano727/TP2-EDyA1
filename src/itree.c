@@ -84,6 +84,8 @@ ITree itree_balancear_der(ITree raiz){
 }
 
 ITree itree_insertar(ITree raiz, Interval intervalo) {
+  double auxDouble;
+
   if(raiz == NULL){
     raiz = malloc(sizeof(INode));
     raiz->intervalo = malloc(sizeof(IntervalStruct));
@@ -94,12 +96,19 @@ ITree itree_insertar(ITree raiz, Interval intervalo) {
     raiz->right = NULL;
   }else if(intervalo->bgn < raiz->intervalo->bgn){
     raiz->left = itree_insertar(raiz->left, intervalo);
-    raiz->maySub = itree_max_sub(raiz);
+    
+    auxDouble = itree_max_sub(raiz);
+    raiz->maySub = raiz->maySub > auxDouble ? raiz->maySub : auxDouble;
+    
     if(itree_balance_factor(raiz) < -1){
       raiz = itree_balancear_izq(raiz);
     }
   }else{
     raiz->right = itree_insertar(raiz->right, intervalo);
+    
+    auxDouble = itree_max_sub(raiz);
+    raiz->maySub = raiz->maySub > auxDouble ? raiz->maySub : auxDouble;
+    
     if(itree_balance_factor(raiz) > 1){
       raiz = itree_balancear_der(raiz);
     }
