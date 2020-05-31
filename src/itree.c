@@ -115,22 +115,22 @@ ITree itree_minimo(ITree arbol) {
 ITree itree_eliminar(ITree arbol, Interval intervalo){
   if(arbol != NULL){
     if(arbol->intervalo->bgn == intervalo->bgn && arbol->intervalo->end == intervalo->end){
-      ITree aux;
-      if(arbol->left == NULL && arbol->right == NULL)
-        aux = NULL;
-      else if(arbol->left == NULL)
-        aux = arbol->right;
-      else if(arbol->right == NULL)
-        aux = arbol->left;
-      else{
+      ITree aux = arbol;
+      if(arbol->left != NULL && arbol->right != NULL){
         aux = itree_minimo(arbol->right);
-        aux = itree_eliminar(aux->right, aux->intervalo);
-        aux->maySub = itree_max_sub(aux);
+
+        Interval i = arbol->intervalo;
+        arbol->intervalo = aux->intervalo;
+        aux->intervalo = i;
+
+        arbol->right = itree_eliminar(arbol->right, aux->intervalo);
+        arbol->maySub = itree_max_sub(arbol);
+      }else{
+        arbol = arbol->left == NULL ? arbol->right : arbol->left;
+        free(aux->intervalo);
+        free(aux);
       }
-      free(arbol);
-      return aux;
-    }
-    if(intervalo->bgn < arbol->intervalo->bgn){
+    }else if(intervalo->bgn < arbol->intervalo->bgn){
       arbol->left = itree_eliminar(arbol->left, intervalo);
       arbol->maySub = itree_max_sub(arbol);
       if(itree_balance_factor(arbol) > 1)
