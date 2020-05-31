@@ -31,7 +31,7 @@ int itree_balance_factor(ITree arbol){
   return itree_altura(arbol->right) - itree_altura(arbol->left);
 }
 
-double itree_max_sub(ITree nodo){
+double itree_max_sub_aux(ITree nodo){
   if(nodo->left == NULL && nodo->right == NULL)
     return nodo->maySub;
   else if(nodo->left == NULL)
@@ -39,6 +39,11 @@ double itree_max_sub(ITree nodo){
   else if(nodo->right == NULL)
     return nodo->left->maySub;
   return nodo->left->maySub > nodo->right->maySub ? nodo->left->maySub : nodo->right->maySub;
+}
+
+double itree_max_sub(ITree nodo) {
+  double aux = itree_max_sub_aux(nodo);
+  return nodo->maySub > aux ? nodo->maySub : aux;
 }
 
 ITree itree_rotacion_simple_der(ITree arbol){
@@ -97,17 +102,13 @@ ITree itree_insertar(ITree arbol, Interval intervalo) {
   }else if(intervalo->bgn < arbol->intervalo->bgn){
     arbol->left = itree_insertar(arbol->left, intervalo);
     
-    auxDouble = itree_max_sub(arbol);
-    arbol->maySub = arbol->maySub > auxDouble ? arbol->maySub : auxDouble;
-    
+    arbol->maySub = itree_max_sub(arbol);
     if(itree_balance_factor(arbol) < -1)
       arbol = itree_balancear_izq(arbol);
   }else{
     arbol->right = itree_insertar(arbol->right, intervalo);
     
-    auxDouble = itree_max_sub(arbol);
-    arbol->maySub = arbol->maySub > auxDouble ? arbol->maySub : auxDouble;
-    
+    arbol->maySub = itree_max_sub(arbol);
     if(itree_balance_factor(arbol) > 1)
       arbol = itree_balancear_der(arbol);
   }
