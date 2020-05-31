@@ -21,6 +21,10 @@ ITree itree_crear();
 
 void itree_destruir(ITree arbol);
 
+int itree_altura(ITree arbol);
+
+int itree_balance_factor(ITree arbol);
+
 ITree itree_insertar(ITree arbol, Interval intervalo);
 
 ITree itree_eliminar(ITree arbol, Interval intervalo);
