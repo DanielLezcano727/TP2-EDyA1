@@ -2,51 +2,59 @@
 #include <stdlib.h>
 #include "itree.h"
 
+int validar_op(char* buff) {
+  
+}
+
 int main(){
-    ITree raiz = itree_crear();
-    
-    Interval intervalo = malloc(sizeof(IntervalStruct));
-
-    
-    itree_recorrer_dfs(raiz);
-
-    int continuar = 0;
+    // ITree raiz = itree_crear();
+    // Interval intervalo = malloc(sizeof(IntervalStruct));
+    // Interval intervaloFin;
+  
+    int continuar = 1;
     char casos;
     char buff[10];
-    Interval intervaloFin;
 
     while(continuar) {
-      scanf("%s", &buff);
+      printf("Ingrese una operacion: \n");
+      fgets(buff, sizeof(buff), stdin);
       casos = buff[0];
-      switch(casos) {
-        case 'i':
-          intervalo->bgn = (double)(buff[] - '0');
-          intervalo->end = 10;
-          raiz = itree_insertar(raiz, intervalo);
-          break;
-        case 'e':
-          intervalo->bgn = 6;
-          intervalo->end = 10;
-          raiz = itree_eliminar(raiz, intervalo);
-          break;
-        case '?':
-        intervalo->bgn = 6;
-        intervalo->end = 10;
-        intervaloFin = itree_intersectar(raiz, intervalo);
-        printf("[%f, %f] interseca con [%f, %f]\n", intervalo->bgn, intervalo->end, intervaloFin->bgn, intervaloFin->end);
-          break;
-        case 'd':
-          itree_recorrer_dfs(raiz);
-          break;
-        case 's':
-          continuar++;
-          free(intervalo);
-          itree_destruir(raiz);
-          break;
-        default:
-          printf("Entrada inválida");
+
+      if(validar_op(buff)) {
+        switch(casos) {
+          case 'i':
+            printf("insertar\n");
+            // intervalo->bgn = (double)(buff[] - '0');
+            // intervalo->end = 10;
+            // raiz = itree_insertar(raiz, intervalo);
+            break;
+          case 'e':
+            printf("eliminar\n");
+            // intervalo->bgn = 6;
+            // intervalo->end = 10;
+            // raiz = itree_eliminar(raiz, intervalo);
+            break;
+          case '?':
+            printf("intersectar\n");
+          // intervalo->bgn = 6;
+          // intervalo->end = 10;
+          // intervaloFin = itree_intersectar(raiz, intervalo);
+          // printf("[%f, %f] interseca con [%f, %f]\n", intervalo->bgn, intervalo->end, intervaloFin->bgn, intervaloFin->end);
+            break;
+          case 'd':
+            printf("destruir\n");
+            // itree_recorrer_dfs(raiz);
+            break;
+          case 's':
+            printf("salir\n");
+            continuar = 0;
+            // free(intervalo);
+            // itree_destruir(raiz);
+            break;
+          default:
+            printf("Entrada inválida\n");
+        }
       }
-    }
 
     return 0;
 }
@@ -82,3 +90,5 @@ int main(){
     // intervalo->bgn = 6;
     // intervalo->end = 10;
     // raiz = itree_insertar(raiz, intervalo);
+    
+    // itree_recorrer_dfs(raiz);
