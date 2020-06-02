@@ -177,8 +177,10 @@ void itree_recorrer_bfs(ITree arbol, FuncionVisitante visit) {
   for(;!cola_es_vacia(queue);) {
     aux = cola_primero(queue);
     visit(aux);
+    cola_desencolar(queue);
     cola_encolar(queue, aux->left);
     cola_encolar(queue, aux->right);
-    cola_desencolar(queue);
   }
+
+  cola_destruir(queue);
 }

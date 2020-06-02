@@ -12,46 +12,50 @@ Cola* cola_crear() {
 }
 
 int cola_es_vacia(Cola* queue) {
-    return (queue->inicio == NULL);
+    if(queue != NULL) {
+        return (queue->inicio == NULL);
+    }
+    return -1;
 }
 
 ITree cola_primero(Cola* queue) {
-    return queue->inicio->dato;
+    if(queue != NULL && queue->inicio != NULL) {
+        return queue->inicio->dato;
+    }
+    return NULL;
 }
 
 Cola* cola_encolar(Cola* queue, ITree data) {
     SNodo* newNode = malloc(sizeof(SNodo));
     newNode->dato = malloc(sizeof(INode));
     newNode->dato = data;
+    newNode->sig = NULL;
     
-    if(queue->inicio == NULL) {
-        newNode->sig = queue->fin;
-        queue->fin = newNode;
-        queue->inicio = newNode;    
-    }else {
-        newNode->sig = queue->fin;
-        queue->fin = newNode;
+    if(queue != NULL && data != NULL) {
+        if(!cola_es_vacia(queue)) {
+            queue->fin->sig = newNode;
+            queue->fin = newNode;
+        }else {
+            queue->inicio = newNode;
+            queue->fin = newNode;
+        }
     }
+
     return queue;
 }
 
-Cola* cola_desencolar(Cola* queue) {
-    if(!cola_es_vacia(queue) && queue->fin != queue->inicio) {
-        SNodo* temp = queue->fin;
-        while(temp->sig != queue->inicio) {
-            temp = temp->sig;
+void cola_desencolar(Cola* queue) {
+    if(queue != NULL) {
+        if(!cola_es_vacia(queue)) {
+            SNodo* temp = queue->inicio;
+            queue->inicio = queue->inicio->sig;
+            free(temp);
         }
-        queue->inicio = temp;
-        free(temp->sig);
-
-        return queue;
     }
-
-    return NULL;
 }
 
 void cola_destruir(Cola* queue) {
-    SNodo* temp = queue->inicio;
+    SNodo* temp;
     for(;queue->inicio != NULL;) {
         temp = queue->inicio;
         queue->inicio = queue->inicio->sig;

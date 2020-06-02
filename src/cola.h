@@ -20,9 +20,7 @@ ITree cola_primero(Cola* queue);
 
 Cola* cola_encolar(Cola* queue, ITree data);
 
-Cola* cola_desencolar(Cola* queue);
-
-void cola_imprimir(Cola* queue);
+void cola_desencolar(Cola* queue);
 
 void cola_destruir(Cola* queue);
 
