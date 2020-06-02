@@ -10,6 +10,12 @@
  - [ ] Hacer consultas para no tomar decisiones de diseño :)
  - [ ] Repensar nombres estructuras
  - [ ] Pasar codigo por programa convenciones
+ 
+ ## Notas para el TP (a implementar)
+ - [ ] No pueden repetirse intervalos
+ - [ ] Intervalos de igual inicio se agregan a la izquierda
+ - [ ] Validar TODAS las entradas(intervalos validos, datos validos, comando valido, etc) (incluido mayusc)
+ - [ ] Usar funcionvisitante para imprimir
 
 ## Consultas:
  - Usar punteros para estructura Intervalos (X)
