@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "itree.h"
 
+static void imprimir_nodo_intervalos(ITree arbol) {
+  printf("[%f %f] Mayor subintervalo: %f\n", arbol->intervalo->bgn, arbol->intervalo->end, arbol->maySub);
+}
+
 int main(){
     ITree raiz = itree_crear();
     
@@ -35,7 +39,8 @@ int main(){
     intervalo->end = 10;
     raiz = itree_insertar(raiz, intervalo);
     
-    itree_recorrer_dfs(raiz);
+    // itree_recorrer_dfs(raiz, imprimir_nodo_intervalos);
+    itree_recorrer_bfs(raiz, imprimir_nodo_intervalos);
 
     free(intervalo);
     itree_destruir(raiz);

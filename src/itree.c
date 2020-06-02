@@ -1,4 +1,5 @@
 #include "itree.h"
+#include "cola.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -160,10 +161,24 @@ Interval itree_intersectar(ITree arbol, Interval intervalo) {
   return NULL;
 }
 
-void itree_recorrer_dfs(ITree arbol) {
+void itree_recorrer_dfs(ITree arbol, FuncionVisitante visit) {
   if(arbol != NULL){
-    printf("[%f %f] Mayor subintervalo: %f\n", arbol->intervalo->bgn, arbol->intervalo->end, arbol->maySub);
-    itree_recorrer_dfs(arbol->left);
-    itree_recorrer_dfs(arbol->right);
+    visit(arbol);
+    itree_recorrer_dfs(arbol->left, visit);
+    itree_recorrer_dfs(arbol->right, visit);
+  }
+}
+
+void itree_recorrer_bfs(ITree arbol, FuncionVisitante visit) {
+  Cola* queue = cola_crear();
+  ITree aux;
+
+  queue = cola_encolar(queue, arbol);
+  for(;!cola_es_vacia(queue);) {
+    aux = cola_primero(queue);
+    visit(aux);
+    cola_encolar(queue, aux->left);
+    cola_encolar(queue, aux->right);
+    cola_desencolar(queue);
   }
 }
