@@ -1,9 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "itree.h"
 
 int validar_op(char* buff) {
-  
+  int cond;
+  switch(buff[0]) {
+    case 's':
+      if(strcmp(buff, "salida") == 0)
+        cond = 6;
+      break;
+    case 'b':
+      if(strcmp(buff, "bfs") == 0)
+        cond = 5;
+      break;
+    case 'd':
+      if(strcmp(buff, "dfs") == 0)
+        cond = 4;
+      break;
+    case '?':
+      if(strcmp(buff, "? [a,b]") == 0)
+        cond = 3;
+      break;
+    case 'e':
+      if(strcmp(buff, "e [a,b]") == 0)
+        cond = 2;
+      break;
+    case 'i':
+      if(strcmp(buff, "i [a,b]") == 0)
+        cond = 1;
+      break;
+    
+    default:
+      cond = 0;
+  }
+
+  return cond;
 }
 
 int main(){
@@ -12,40 +44,44 @@ int main(){
     // Interval intervaloFin;
   
     int continuar = 1;
-    char casos;
-    char buff[10];
+    int caso;
+    char buff[256];
 
     while(continuar) {
       printf("Ingrese una operacion: \n");
-      fgets(buff, sizeof(buff), stdin);
-      casos = buff[0];
+      scanf(" %[^\n]s",buff); //buscar opcion mas elegante
+      caso = validar_op(buff);
 
-      if(validar_op(buff)) {
-        switch(casos) {
-          case 'i':
+      if(caso) {
+        switch(caso) {
+          case 1:
             printf("insertar\n");
             // intervalo->bgn = (double)(buff[] - '0');
             // intervalo->end = 10;
             // raiz = itree_insertar(raiz, intervalo);
             break;
-          case 'e':
+          case 2:
             printf("eliminar\n");
             // intervalo->bgn = 6;
             // intervalo->end = 10;
             // raiz = itree_eliminar(raiz, intervalo);
             break;
-          case '?':
+          case 3:
             printf("intersectar\n");
           // intervalo->bgn = 6;
           // intervalo->end = 10;
           // intervaloFin = itree_intersectar(raiz, intervalo);
           // printf("[%f, %f] interseca con [%f, %f]\n", intervalo->bgn, intervalo->end, intervaloFin->bgn, intervaloFin->end);
             break;
-          case 'd':
-            printf("destruir\n");
+          case 4:
+            printf("dfs\n");
             // itree_recorrer_dfs(raiz);
             break;
-          case 's':
+          case 5:
+            printf("bfs\n");
+            // itree_recorrer_dfs(raiz);
+            break;
+          case 6:
             printf("salir\n");
             continuar = 0;
             // free(intervalo);
@@ -55,6 +91,7 @@ int main(){
             printf("Entrada inválida\n");
         }
       }
+    }
 
     return 0;
 }
