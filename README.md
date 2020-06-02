@@ -6,16 +6,17 @@
  - [X] Implementar función eliminar_nodo para arboles AVL
  - [X] Implementar funciones para buscar intersecciones en un AVL
  - [ ] Implementar menú de uso del programa
- - [ ] Hacer informe
- - [ ] Hacer consultas para no tomar decisiones de diseño :)
+ - [ ] Revisar implementacion bfs
  - [ ] Repensar nombres estructuras
  - [ ] Pasar codigo por programa convenciones
+ - [ ] Hacer informe
+ - [ ] Hacer consultas para no tomar decisiones de diseño :)
  
  ## Notas para el TP (a implementar)
  - [ ] No pueden repetirse intervalos
  - [ ] Intervalos de igual inicio se agregan a la izquierda
  - [ ] Validar TODAS las entradas(intervalos validos, datos validos, comando valido, etc) (incluido mayusc)
- - [ ] Usar funcionvisitante para imprimir
+ - [X] Usar funcionvisitante para imprimir
 
 ## Consultas:
  - Usar punteros para estructura Intervalos (X)
