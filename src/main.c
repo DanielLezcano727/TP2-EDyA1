@@ -1,7 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "itree.h"
+
+// int validar_intervalo(char* buff) {
+//   int i;
+
+//   if(buff[1] == ' ' && buff[2] == '[') {
+//     for(i = 3; isdigit(buff[i]); i++);
+//     if(buff[i] == ',')
+//       for(i += 1; isdigit(buff[i]); i++);
+//     else if(buff[i] == '.')
+//       for(i += 1; isdigit(buff[i]); i++);
+//       if(buff[i] == ',')
+//         for(i = 3; isdigit(buff[i]); i++);
+//   }
+// }
+
+Interval string_to_double(char* buff, Interval intervalo) {
+  int j = 0, i;
+  char aux[256];
+
+  for(i = 3; isdigit(buff[i]) || buff[i] == '.'; i++) {
+    aux[j] = buff[i];
+    j++;
+  }
+  aux[j] = '\n';
+  sscanf(aux, "%lf", &(intervalo->bgn));
+  i++;
+  j = 0;
+  for(; isdigit(buff[i]) || buff[i] == '.'; i++) {
+    aux[j] = buff[i];
+    j++;
+    aux[j] = '\n';
+    sscanf(aux, "%lf", &(intervalo->end));
+  }
+
+  return intervalo;
+}
 
 int validar_op(char* buff) {
   int cond;
@@ -19,15 +56,15 @@ int validar_op(char* buff) {
         cond = 4;
       break;
     case '?':
-      if(strcmp(buff, "? [a,b]") == 0)
+      // if(validar_intervalo(buff))
         cond = 3;
       break;
     case 'e':
-      if(strcmp(buff, "e [a,b]") == 0)
+      // if(validar_intervalo(buff))
         cond = 2;
       break;
     case 'i':
-      if(strcmp(buff, "i [a,b]") == 0)
+      // if(validar_intervalo(buff))
         cond = 1;
       break;
     
@@ -39,9 +76,9 @@ int validar_op(char* buff) {
 }
 
 int main(){
-    // ITree raiz = itree_crear();
-    // Interval intervalo = malloc(sizeof(IntervalStruct));
-    // Interval intervaloFin;
+    ITree raiz = itree_crear();
+    Interval intervalo = malloc(sizeof(IntervalStruct));
+    Interval intervaloFin;
   
     int continuar = 1;
     int caso;
@@ -56,36 +93,33 @@ int main(){
         switch(caso) {
           case 1:
             printf("insertar\n");
-            // intervalo->bgn = (double)(buff[] - '0');
-            // intervalo->end = 10;
-            // raiz = itree_insertar(raiz, intervalo);
+            intervalo = string_to_double(buff, intervalo);
+            raiz = itree_insertar(raiz, intervalo);
             break;
           case 2:
             printf("eliminar\n");
-            // intervalo->bgn = 6;
-            // intervalo->end = 10;
-            // raiz = itree_eliminar(raiz, intervalo);
+            intervalo = string_to_double(buff, intervalo);
+            raiz = itree_eliminar(raiz, intervalo);
             break;
           case 3:
             printf("intersectar\n");
-          // intervalo->bgn = 6;
-          // intervalo->end = 10;
-          // intervaloFin = itree_intersectar(raiz, intervalo);
-          // printf("[%f, %f] interseca con [%f, %f]\n", intervalo->bgn, intervalo->end, intervaloFin->bgn, intervaloFin->end);
+            intervalo = string_to_double(buff, intervalo);
+            intervaloFin = itree_intersectar(raiz, intervalo);
+            printf("[%f, %f] interseca con [%f, %f]\n", intervalo->bgn, intervalo->end, intervaloFin->bgn, intervaloFin->end);
             break;
           case 4:
             printf("dfs\n");
-            // itree_recorrer_dfs(raiz);
+            itree_recorrer_dfs(raiz);
             break;
           case 5:
-            printf("bfs\n");
-            // itree_recorrer_dfs(raiz);
+            printf("bfs\n"); //notar que esta version no posee bfs
+            itree_recorrer_dfs(raiz);
             break;
           case 6:
             printf("salir\n");
             continuar = 0;
-            // free(intervalo);
-            // itree_destruir(raiz);
+            free(intervalo);
+            itree_destruir(raiz);
             break;
           default:
             printf("Entrada inválida\n");
