@@ -93,12 +93,12 @@ ITree itree_insertar(ITree arbol, Interval intervalo) {
     arbol->maySub = intervalo->end;
     arbol->left = NULL;
     arbol->right = NULL;
-  }else if(intervalo->bgn < arbol->intervalo->bgn){
+  }else if(intervalo->bgn < arbol->intervalo->bgn || (intervalo->bgn == arbol->intervalo->bgn && intervalo->end < arbol->intervalo->end)){
     arbol->left = itree_insertar(arbol->left, intervalo);
     arbol->maySub = itree_max_sub(arbol);
     if(itree_balance_factor(arbol) < -1)
       arbol = itree_balancear_izq(arbol);
-  }else{
+  }else {
     arbol->right = itree_insertar(arbol->right, intervalo);    
     arbol->maySub = itree_max_sub(arbol);
     if(itree_balance_factor(arbol) > 1)
