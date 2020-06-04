@@ -8,29 +8,37 @@
 #define FORMATO_INTERVALO_INCORRECTO -2 
 #define DATOS_INNECESARIOS -3
 #define INICIO_MAYOR_QUE_FIN -4
+#define FALTA_OPCION -5
 
 int verificar_opcion(char opcion[], char *opciones[], int cant_opciones){
+  if(opcion == NULL)
+    return FALTA_OPCION;
   int i;
   for(i=0;i<cant_opciones && strcmp(opciones[i], opcion) != 0;i++);
   return i == cant_opciones ? OPCION_INCORRECTA : i;
 }
 
 int get_intervalo(Interval intervalo, int opcion){
-  strtok(NULL, "[");
   char *buf = strtok(NULL, ", ");
+  
+  if(buf[0] != '[')
+    return FORMATO_INTERVALO_INCORRECTO;
 
-  double numero = strtod(buf, &buf);
-  if(buf == NULL && buf[0] == '\0')
+  double numero = strtod(buf+1, &buf);
+  if(buf[0] != '\0')
     return FORMATO_INTERVALO_INCORRECTO;
   
   intervalo->bgn = numero;
 
-  buf = strtok(NULL, "]");
+  buf = strtok(NULL, "");
   numero = strtod(buf, &buf);
   
-  if(buf == NULL && buf[0] == '\0')
+  if(buf[0] != ']')
     return FORMATO_INTERVALO_INCORRECTO;
   
+  if(buf[1] != '\0')
+    return DATOS_INNECESARIOS;
+
   intervalo->end = numero;
   return intervalo->bgn <= intervalo->end ? opcion : INICIO_MAYOR_QUE_FIN;
 }
@@ -40,22 +48,16 @@ void interprete(char *opciones[], int cant_opciones){
   char buf[100];
   int opcion;
   char* aux;
-  char enter;
   Interval intervalo = malloc(sizeof(IntervalStruct));
   ITree raiz = itree_crear();
   while(!end){
-    scanf("%[^\n]%c", buf, &enter);
+    scanf("%[^\n]", buf);
+    getchar();
     aux = strtok(buf, " ");
     opcion = verificar_opcion(aux, opciones, cant_opciones);
     if(0 <= opcion && opcion <= 2)
       opcion = get_intervalo(intervalo, opcion);
 
-    if(opcion != OPCION_INCORRECTA && opcion != FORMATO_INTERVALO_INCORRECTO){
-      aux = strtok(NULL, "");
-      if(aux[0] != '\0')
-        opcion = DATOS_INNECESARIOS;
-    }
-    printf("OPCION %d\n", opcion);
     switch(opcion){
       case 0:
         raiz = itree_insertar(raiz, intervalo);
@@ -84,7 +86,7 @@ void interprete(char *opciones[], int cant_opciones){
           printf("%s\n", opciones[i]);
         break;
       case FORMATO_INTERVALO_INCORRECTO:
-        printf("Por favor, ingrese el intervalo en un formato correcto. El formato esperador es:\n"
+        printf("Por favor, ingrese el intervalo en un formato correcto. El formato esperado es:\n"
           "[inicio, fin]\n"
           "siendo cada uno de los extremos un numero con su parte decimal separada por .\n"
           "Ejemplo: [2.34, 6.21]\n");
@@ -94,6 +96,9 @@ void interprete(char *opciones[], int cant_opciones){
         break;
       case INICIO_MAYOR_QUE_FIN:
         printf("Por favor, ingrese un intervalo donde el inicio sea menor o igual que el fin\n");
+        break;
+      case FALTA_OPCION:
+        printf("Por favor, ingrese un comando\n");
         break;
     } 
   }
@@ -112,9 +117,5 @@ int main(){
   };
 
   interprete(opciones, CANT_OPCIONES);
-
-  for(int i=0;i<CANT_OPCIONES;i++)
-    free(opciones[i]);
-
   return 0;
 }
