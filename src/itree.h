@@ -1,12 +1,12 @@
 #ifndef __ITREE_H__
 #define __ITREE_H__
 
-typedef struct _Interval {
+typedef struct _Intervalo {
   double bgn;
   double end;
-}IntervalStruct;
+}Intervalo;
 
-typedef IntervalStruct *Interval;
+typedef Intervalo *Interval;
 
 typedef struct _INode {
   Interval intervalo;
