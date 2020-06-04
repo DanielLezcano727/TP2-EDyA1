@@ -48,7 +48,7 @@ void interprete(char *opciones[], int cant_opciones){
   char buf[100];
   char* ptr;
 
-  Interval intervalo = malloc(sizeof(IntervalStruct)), res;
+  Interval intervalo = malloc(sizeof(Intervalo)), res;
   ITree raiz = itree_crear();
 
   while(!end){
