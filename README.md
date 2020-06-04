@@ -11,7 +11,7 @@
  - [ ] Pasar codigo por programa convenciones
  - [ ] Hacer informe
  - [ ] Hacer consultas para no tomar decisiones de diseño :)
- 
+
  ## Notas para el TP (a implementar)
  - [ ] No pueden repetirse intervalos
  - [ ] Intervalos de igual inicio se agregan a la izquierda
@@ -19,11 +19,18 @@
  - [X] Usar funcionvisitante para imprimir
 
 ## Consultas:
- - Usar punteros para estructura Intervalos (X)
- - Usar funcionVisitante en itree.c en lugar de printf (Consultado)
- - Es necesario chequear que los datos dados (por ejemplo, intervalos a busar o intervalos para el arbol) esten bien generados? (Consultado)
- - IMPORTANTE: consultar/buscar sobre implementacion de itree_insertar, quizas no debería rebalancear recursivo hacia arriba
- 
+ - [X] Usar funcionVisitante en itree.c en lugar de printf
+ - [X] Es necesario chequear que los datos dados (por ejemplo, intervalos a busar o intervalos para el arbol) esten bien generados?
+ - [ ] Usar punteros para estructura Intervalos (X)
+ - [ ] IMPORTANTE: consultar/buscar sobre implementacion de itree_insertar, quizas no debería rebalancear recursivo hacia arriba
+ - [ ] Es necesario validar que los intervalos sean correctos en las funciones itree? (Solo se usara desde el interprete o hay que hacer eso tambien por si se importa la libreria de itree?)
+ - [ ] Cual es el maximo numero que debemos considerar que nos pueden ingresar?
+
 ## Decisiones de diseño:
  - Crear funcion itree_crear_nodo para aligerar itree_insertar
- 
+
+## Informe:
+ - Agregar por que pusimos maySub en el nodo del arbol y no en intervalo (es un dato del arbol auxiliar para saber donde ubicar los subintervalos, no es un dato de un intervalo)
+ - Tener una estructura intervalo nos sirve para la funcion visitante (su signatura)
+ - Explicar el problema de strtok que tuvimos (No toma el primer caracter)
+ - Explicar por que elegimos imprimirlo en pre order (Es una forma sencilla de ver si esta balanceado) (Se puede ver si esta balanceado con otro tipo de recorrido? Creo que no)

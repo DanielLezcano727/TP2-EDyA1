@@ -44,17 +44,21 @@ int get_intervalo(Interval intervalo, int opcion){
 }
 
 void interprete(char *opciones[], int cant_opciones){
-  int end = 0;
+  int end = 0, opcion;
   char buf[100];
-  int opcion;
-  char* aux;
+  char* ptr;
+
   Interval intervalo = malloc(sizeof(IntervalStruct));
   ITree raiz = itree_crear();
+
   while(!end){
     scanf("%[^\n]", buf);
     getchar();
-    aux = strtok(buf, " ");
-    opcion = verificar_opcion(aux, opciones, cant_opciones);
+
+    ptr = strtok(buf, " ");
+    
+    opcion = verificar_opcion(ptr, opciones, cant_opciones);
+
     if(0 <= opcion && opcion <= 2)
       opcion = get_intervalo(intervalo, opcion);
 
@@ -92,7 +96,7 @@ void interprete(char *opciones[], int cant_opciones){
           "Ejemplo: [2.34, 6.21]\n");
         break;
       case DATOS_INNECESARIOS:
-        printf("Por favor, no ingrese mas datos que los indicados (incluido espacios).\n");
+        printf("Por favor, no ingrese mas datos que los indicados (incluyendo espacios).\n");
         break;
       case INICIO_MAYOR_QUE_FIN:
         printf("Por favor, ingrese un intervalo donde el inicio sea menor o igual que el fin\n");
@@ -102,7 +106,8 @@ void interprete(char *opciones[], int cant_opciones){
         break;
     } 
   }
-
+  
+  free(intervalo);
   itree_destruir(raiz);
 }
 
