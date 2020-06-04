@@ -131,7 +131,7 @@ ITree itree_eliminar(ITree arbol, Interval intervalo){
         free(aux->intervalo);
         free(aux);
       }
-    }else if(intervalo->bgn < arbol->intervalo->bgn){
+    }else if(intervalo->bgn < arbol->intervalo->bgn || (intervalo->bgn == arbol->intervalo->bgn && intervalo->end < arbol->intervalo->end)){
       arbol->left = itree_eliminar(arbol->left, intervalo);
       arbol->maySub = itree_max_sub(arbol);
       if(itree_balance_factor(arbol) > 1)
@@ -163,7 +163,7 @@ Interval itree_intersectar(ITree arbol, Interval intervalo) {
 
 void itree_recorrer_dfs(ITree arbol, FuncionVisitante visit) {
   if(arbol != NULL){
-    visit(arbol);
+    visit(arbol->intervalo);
     itree_recorrer_dfs(arbol->left, visit);
     itree_recorrer_dfs(arbol->right, visit);
   }
@@ -171,15 +171,14 @@ void itree_recorrer_dfs(ITree arbol, FuncionVisitante visit) {
 
 void itree_recorrer_bfs(ITree arbol, FuncionVisitante visit) {
   Cola* queue = cola_crear();
-  ITree aux;
 
   queue = cola_encolar(queue, arbol);
-  for(;!cola_es_vacia(queue);) {
-    aux = cola_primero(queue);
-    visit(aux);
+  while(!cola_es_vacia(queue)) {
+    arbol = cola_primero(queue);
+    visit(arbol->intervalo);
     cola_desencolar(queue);
-    cola_encolar(queue, aux->left);
-    cola_encolar(queue, aux->right);
+    cola_encolar(queue, arbol->left);
+    cola_encolar(queue, arbol->right);
   }
 
   cola_destruir(queue);

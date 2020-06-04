@@ -17,7 +17,9 @@ typedef struct _INode {
 
 typedef INode *ITree;
 
-typedef void (*FuncionVisitante) (ITree dato);
+// typedef void (*FuncionVisitante) (ITree dato);
+
+typedef void (*FuncionVisitante) (Interval dato);
 
 ITree itree_crear();
 
