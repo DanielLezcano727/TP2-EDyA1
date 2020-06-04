@@ -19,13 +19,13 @@ int verificar_opcion(char opcion[], char *opciones[], int cant_opciones){
 }
 
 int get_intervalo(Interval intervalo, int opcion){
-  char *buf = strtok(NULL, ", ");
+  char *buf = strtok(NULL, ",");
   
-  if(buf[0] != '[')
+  if(buf[0] != '[' || buf[1] == ',')
     return FORMATO_INTERVALO_INCORRECTO;
 
   double numero = strtod(buf+1, &buf);
-  if(buf[0] != '\0')
+  if(buf[0] != '\0' || buf[1] != ' ')
     return FORMATO_INTERVALO_INCORRECTO;
   
   intervalo->bgn = numero;

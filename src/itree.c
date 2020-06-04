@@ -146,7 +146,7 @@ ITree itree_eliminar(ITree arbol, Interval intervalo){
 }
 
 int intersectar(Interval i1, Interval i2) {
-  return !(i1->end <= i2->bgn || i2->end <= i1->bgn);
+  return !(i1->end < i2->bgn || i2->end < i1->bgn);
 }
 
 Interval itree_intersectar(ITree arbol, Interval intervalo) {
