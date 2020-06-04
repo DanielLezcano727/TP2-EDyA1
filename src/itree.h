@@ -17,6 +17,10 @@ typedef struct _INode {
 
 typedef INode *ITree;
 
+// typedef void (*FuncionVisitante) (ITree dato);
+
+typedef void (*FuncionVisitante) (Interval dato);
+
 ITree itree_crear();
 
 void itree_destruir(ITree arbol);
@@ -31,8 +35,8 @@ ITree itree_eliminar(ITree arbol, Interval intervalo);
 
 Interval itree_intersectar(ITree arbol, Interval intervalo);
 
-void itree_recorrer_dfs(ITree arbol);
+void itree_recorrer_dfs(ITree arbol, FuncionVisitante visit);
 
-void itree_recorrer_bfs(ITree arbol);
+void itree_recorrer_bfs(ITree arbol, FuncionVisitante visit);
 
 #endif
