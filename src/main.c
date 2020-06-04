@@ -48,7 +48,7 @@ void interprete(char *opciones[], int cant_opciones){
   char buf[100];
   char* ptr;
 
-  Interval intervalo = malloc(sizeof(IntervalStruct));
+  Interval intervalo = malloc(sizeof(IntervalStruct)), res;
   ITree raiz = itree_crear();
 
   while(!end){
@@ -70,8 +70,9 @@ void interprete(char *opciones[], int cant_opciones){
         raiz = itree_eliminar(raiz, intervalo);
         break;
       case 2:
-        if (itree_intersectar(raiz, intervalo) != NULL)
-          printf("Si\n");
+        res = itree_intersectar(raiz, intervalo);
+        if (res != NULL)
+          printf("Si, [%g, %g]\n", res->bgn, res->end);
         else
           printf("No\n");
         break;
@@ -106,7 +107,7 @@ void interprete(char *opciones[], int cant_opciones){
         break;
     } 
   }
-  
+
   free(intervalo);
   itree_destruir(raiz);
 }
