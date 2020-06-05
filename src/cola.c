@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 Cola cola_crear() {
-  Cola queue = malloc(sizeof(Cola));
+  Cola queue = malloc(sizeof(PunterosCola));
   queue->inicio = NULL;
   queue->fin = NULL;
 

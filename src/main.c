@@ -12,6 +12,14 @@
 #define FALTA_OPCION -5
 #define FALTA_INTERVALO -6
 
+// static void imprimir_nodo_intervalos(ITree arbol) {
+//   printf("[%f %f] Mayor subintervalo: %f\n", arbol->intervalo->bgn, arbol->intervalo->end, arbol->maySub);
+// }
+
+static void imprimir_intervalo(Interval intervalo) {
+  printf("[%g, %g] ", intervalo->bgn, intervalo->end);
+}
+
 int verificar_opcion(char opcion[], char *opciones[], int cant_opciones){
   if(opcion == NULL)
     return FALTA_OPCION;
@@ -41,7 +49,7 @@ int get_intervalo(Interval intervalo, int opcion){
   if(buf[1] != '\0')
     return DATOS_INNECESARIOS;
 
-  return opcion;
+  return intervalo->bgn <= intervalo->end ? opcion : INICIO_MAYOR_QUE_FIN;
 }
 
 
@@ -73,16 +81,20 @@ void interprete(char *opciones[], int cant_opciones){
         break;
       case 2:
         res = itree_intersectar(raiz, intervalo);
-        if (res != NULL)
-          printf("Si, [%g, %g]\n", res->bgn, res->end);
-        else
-          printf("No\n");
+        if (res != NULL){
+          printf("Si, ");
+          imprimir_intervalo(res);
+        }else
+          printf("No");
+        puts("");
         break;
       case 3:
-        itree_recorrer_dfs(raiz);
+        itree_recorrer_dfs(raiz, imprimir_intervalo);
+        puts("");
         break;
       case 4:
-        itree_recorrer_bfs(raiz);
+        itree_recorrer_bfs(raiz, imprimir_intervalo);
+        puts("");
         break;
       case 5:
         end = 1;
@@ -116,14 +128,6 @@ void interprete(char *opciones[], int cant_opciones){
 
   free(intervalo);
   itree_destruir(raiz);
-}
-
-// static void imprimir_nodo_intervalos(ITree arbol) {
-//   printf("[%f %f] Mayor subintervalo: %f\n", arbol->intervalo->bgn, arbol->intervalo->end, arbol->maySub);
-// }
-
-static void imprimir_intervalo(Interval intervalo) {
-  printf("[%f %f]\n", intervalo->bgn, intervalo->end);
 }
 
 int main(){

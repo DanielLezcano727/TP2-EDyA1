@@ -125,6 +125,8 @@ ITree itree_eliminar(ITree arbol, Interval intervalo){
         aux->intervalo = i;
 
         arbol->right = itree_eliminar(arbol->right, aux->intervalo);
+        if(itree_balance_factor(arbol) < -1)
+          arbol = itree_balancear_izq(arbol);
         arbol->maySub = itree_max_sub(arbol);
       }else{
         arbol = arbol->left == NULL ? arbol->right : arbol->left;
@@ -154,7 +156,7 @@ Interval itree_intersectar(ITree arbol, Interval intervalo) {
   if(arbol != NULL) {
     if(intersectar(arbol->intervalo, intervalo))
       return arbol->intervalo;
-    if(arbol->left != NULL && arbol->left->maySub >= intervalo->end)
+    if(arbol->left != NULL && arbol->left->maySub >= intervalo->bgn)
       return itree_intersectar(arbol->left, intervalo);
     return itree_intersectar(arbol->right, intervalo);
   }
@@ -170,7 +172,7 @@ void itree_recorrer_dfs(ITree arbol, FuncionVisitante visit) {
 }
 
 void itree_recorrer_bfs(ITree arbol, FuncionVisitante visit) {
-  Cola* queue = cola_crear();
+  Cola queue = cola_crear();
 
   queue = cola_encolar(queue, arbol);
   while(!cola_es_vacia(queue)) {

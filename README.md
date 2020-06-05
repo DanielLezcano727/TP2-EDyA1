@@ -10,6 +10,7 @@
  - [X] Repensar nombres estructuras
  - [X] Hacer consultas para no tomar decisiones de diseño :)
  - [ ] No insertar elementos iguales
+ - [ ] Buscar implementaciones de eliminar
  - [ ] Testear TODOS los casos posibles
  - [ ] Pasar codigo por programa convenciones
  - [ ] Hacer informe
