@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "itree.h"
 
 #define CANT_OPCIONES 6
 #define OPCION_INCORRECTA -1
-#define FORMATO_INTERVALO_INCORRECTO -2 
+#define FORMATO_INTERVALO_INCORRECTO -2
 #define DATOS_INNECESARIOS -3
 #define INICIO_MAYOR_QUE_FIN -4
 #define FALTA_OPCION -5
+#define FALTA_INTERVALO -6
 
 int verificar_opcion(char opcion[], char *opciones[], int cant_opciones){
   if(opcion == NULL)
@@ -19,29 +21,29 @@ int verificar_opcion(char opcion[], char *opciones[], int cant_opciones){
 }
 
 int get_intervalo(Interval intervalo, int opcion){
-  char *buf = strtok(NULL, ",");
-  
-  if(buf[0] != '[' || buf[1] == ',')
+  char* buf = strtok(NULL, "");
+  if(buf == NULL)
+    return FALTA_INTERVALO;
+    
+  if(buf[0] != '[' || !(isdigit(buf[1]) || buf[1] == '-'))
     return FORMATO_INTERVALO_INCORRECTO;
 
-  double numero = strtod(buf+1, &buf);
-  if(buf[0] != '\0' || buf[1] != ' ')
+  intervalo->bgn = strtod(buf+1, &buf);
+  
+  if(buf[0] != ',' || buf[1] != ' ' || !(isdigit(buf[2]) || buf[2] == '-'))
     return FORMATO_INTERVALO_INCORRECTO;
-  
-  intervalo->bgn = numero;
 
-  buf = strtok(NULL, "");
-  numero = strtod(buf, &buf);
-  
+  intervalo->end = strtod(buf+2, &buf);
+
   if(buf[0] != ']')
     return FORMATO_INTERVALO_INCORRECTO;
-  
+
   if(buf[1] != '\0')
     return DATOS_INNECESARIOS;
 
-  intervalo->end = numero;
-  return intervalo->bgn <= intervalo->end ? opcion : INICIO_MAYOR_QUE_FIN;
+  return opcion;
 }
+
 
 void interprete(char *opciones[], int cant_opciones){
   int end = 0, opcion;
@@ -104,6 +106,10 @@ void interprete(char *opciones[], int cant_opciones){
         break;
       case FALTA_OPCION:
         printf("Por favor, ingrese un comando\n");
+        break;
+      case FALTA_INTERVALO:
+        printf("Por favor, ingrese un intervalo junto con el comando.\n"
+          "Ejemplo: 'i [a, b]' siendo a y b números válidos\n");
         break;
     } 
   }

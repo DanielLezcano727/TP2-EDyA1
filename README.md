@@ -5,26 +5,28 @@
  - [X] Implementar arbol AVL de *inserte estructura de intervalos*
  - [X] Implementar función eliminar_nodo para arboles AVL
  - [X] Implementar funciones para buscar intersecciones en un AVL
- - [ ] Implementar menú de uso del programa
- - [ ] Revisar implementacion bfs
- - [ ] Repensar nombres estructuras
+ - [X] Implementar menú de uso del programa
+ - [X] Revisar implementacion bfs
+ - [X] Repensar nombres estructuras
+ - [X] Hacer consultas para no tomar decisiones de diseño :)
+ - [ ] No insertar elementos iguales
+ - [ ] Testear TODOS los casos posibles
  - [ ] Pasar codigo por programa convenciones
  - [ ] Hacer informe
- - [ ] Hacer consultas para no tomar decisiones de diseño :)
 
  ## Notas para el TP (a implementar)
- - [ ] No pueden repetirse intervalos
- - [ ] Intervalos de igual inicio se agregan a la izquierda
- - [ ] Validar TODAS las entradas(intervalos validos, datos validos, comando valido, etc) (incluido mayusc)
+ - [X] Intervalos de igual inicio se agregan a la izquierda
+ - [X] Validar TODAS las entradas(intervalos validos, datos validos, comando valido, etc) (incluido mayusc)
  - [X] Usar funcionvisitante para imprimir
 
 ## Consultas:
  - [X] Usar funcionVisitante en itree.c en lugar de printf
  - [X] Es necesario chequear que los datos dados (por ejemplo, intervalos a busar o intervalos para el arbol) esten bien generados?
- - [ ] Usar punteros para estructura Intervalos (X)
+ - [X] Usar punteros para estructura Intervalos
+ - [X] Es necesario validar que los intervalos sean correctos en las funciones itree? (Solo se usara desde el interprete o hay que hacer eso tambien por si se importa la libreria de itree?)
  - [ ] IMPORTANTE: consultar/buscar sobre implementacion de itree_insertar, quizas no debería rebalancear recursivo hacia arriba
- - [ ] Es necesario validar que los intervalos sean correctos en las funciones itree? (Solo se usara desde el interprete o hay que hacer eso tambien por si se importa la libreria de itree?)
  - [ ] Cual es el maximo numero que debemos considerar que nos pueden ingresar?
+ - [ ] Esta mal aceptar los intervalos sin un espacio en el medio? (Por ahora aceptamos las dos opciones)
 
 ## Decisiones de diseño:
  - Crear funcion itree_crear_nodo para aligerar itree_insertar
