@@ -1,4 +1,5 @@
 #include "itree.h"
+#include "cola.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -92,12 +93,12 @@ ITree itree_insertar(ITree arbol, Interval intervalo) {
     arbol->maySub = intervalo->end;
     arbol->left = NULL;
     arbol->right = NULL;
-  }else if(intervalo->bgn < arbol->intervalo->bgn){
+  }else if(intervalo->bgn < arbol->intervalo->bgn || (intervalo->bgn == arbol->intervalo->bgn && intervalo->end < arbol->intervalo->end)){
     arbol->left = itree_insertar(arbol->left, intervalo);
     arbol->maySub = itree_max_sub(arbol);
     if(itree_balance_factor(arbol) < -1)
       arbol = itree_balancear_izq(arbol);
-  }else{
+  }else {
     arbol->right = itree_insertar(arbol->right, intervalo);    
     arbol->maySub = itree_max_sub(arbol);
     if(itree_balance_factor(arbol) > 1)
@@ -130,7 +131,7 @@ ITree itree_eliminar(ITree arbol, Interval intervalo){
         free(aux->intervalo);
         free(aux);
       }
-    }else if(intervalo->bgn < arbol->intervalo->bgn){
+    }else if(intervalo->bgn < arbol->intervalo->bgn || (intervalo->bgn == arbol->intervalo->bgn && intervalo->end < arbol->intervalo->end)){
       arbol->left = itree_eliminar(arbol->left, intervalo);
       arbol->maySub = itree_max_sub(arbol);
       if(itree_balance_factor(arbol) > 1)
@@ -160,10 +161,25 @@ Interval itree_intersectar(ITree arbol, Interval intervalo) {
   return NULL;
 }
 
-void itree_recorrer_dfs(ITree arbol) {
+void itree_recorrer_dfs(ITree arbol, FuncionVisitante visit) {
   if(arbol != NULL){
-    printf("[%f %f] Mayor subintervalo: %f\n", arbol->intervalo->bgn, arbol->intervalo->end, arbol->maySub);
-    itree_recorrer_dfs(arbol->left);
-    itree_recorrer_dfs(arbol->right);
+    visit(arbol->intervalo);
+    itree_recorrer_dfs(arbol->left, visit);
+    itree_recorrer_dfs(arbol->right, visit);
   }
+}
+
+void itree_recorrer_bfs(ITree arbol, FuncionVisitante visit) {
+  Cola* queue = cola_crear();
+
+  queue = cola_encolar(queue, arbol);
+  while(!cola_es_vacia(queue)) {
+    arbol = cola_primero(queue);
+    visit(arbol->intervalo);
+    cola_desencolar(queue);
+    cola_encolar(queue, arbol->left);
+    cola_encolar(queue, arbol->right);
+  }
+
+  cola_destruir(queue);
 }

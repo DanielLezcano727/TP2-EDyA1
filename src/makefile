@@ -1,13 +1,17 @@
-ESTRUCTURA = itree
+ARBOL = itree
+COLA = cola
 FLAGS = -Wall -Wextra -Werror -std=c99 -g
 
-all: $(ESTRUCTURA).o main
+all: $(ARBOL).o $(COLA).o main
 
-$(ESTRUCTURA).o: $(ESTRUCTURA).c $(ESTRUCTURA).h
-	gcc $(FLAGS) -c $(ESTRUCTURA).c
+$(ARBOL).o: $(ARBOL).c $(ARBOL).h $(COLA).h 
+	gcc $(FLAGS) -c $(ARBOL).c
 
-main: main.c $(ESTRUCTURA).o
-	gcc $(FLAGS) -o main ./main.c $(ESTRUCTURA).o
+$(COLA).o: $(COLA).c $(ARBOL).h $(COLA).h
+	gcc $(FLAGS) -c $(COLA).c
+
+main: main.c $(ARBOL).o $(COLA).o 
+	gcc $(FLAGS) -o main ./main.c $(ARBOL).o $(COLA).o
 
 clean: 
 	rm *.o main vgcore*

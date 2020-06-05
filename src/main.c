@@ -24,7 +24,7 @@ int get_intervalo(Interval intervalo, int opcion){
   char* buf = strtok(NULL, "");
   if(buf == NULL)
     return FALTA_INTERVALO;
-    
+
   if(buf[0] != '[' || !(isdigit(buf[1]) || buf[1] == '-'))
     return FORMATO_INTERVALO_INCORRECTO;
 
@@ -116,6 +116,14 @@ void interprete(char *opciones[], int cant_opciones){
 
   free(intervalo);
   itree_destruir(raiz);
+}
+
+// static void imprimir_nodo_intervalos(ITree arbol) {
+//   printf("[%f %f] Mayor subintervalo: %f\n", arbol->intervalo->bgn, arbol->intervalo->end, arbol->maySub);
+// }
+
+static void imprimir_intervalo(Interval intervalo) {
+  printf("[%f %f]\n", intervalo->bgn, intervalo->end);
 }
 
 int main(){
