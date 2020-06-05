@@ -7,21 +7,23 @@ typedef struct _SNodo {
   struct _SNodo *sig;
 } SNodo;
 
-typedef struct _Cola {
-  SNodo* inicio;
-  SNodo* fin;
-}Cola;
+typedef struct _PunterosCola {
+  SNodo *inicio;
+  SNodo *fin;
+}PunterosCola;
 
-Cola* cola_crear();
+typedef PunterosCola *Cola;
 
-int cola_es_vacia(Cola* queue);
+Cola cola_crear();
 
-ITree cola_primero(Cola* queue);
+int cola_es_vacia(Cola queue);
 
-Cola* cola_encolar(Cola* queue, ITree data);
+ITree cola_primero(Cola queue);
 
-void cola_desencolar(Cola* queue);
+Cola cola_encolar(Cola queue, ITree data);
 
-void cola_destruir(Cola* queue);
+void cola_desencolar(Cola queue);
+
+void cola_destruir(Cola queue);
 
 #endif /* __COLA_H__ */

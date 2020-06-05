@@ -3,23 +3,23 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Cola* cola_crear() {
-  Cola* queue = malloc(sizeof(Cola));
+Cola cola_crear() {
+  Cola queue = malloc(sizeof(Cola));
   queue->inicio = NULL;
   queue->fin = NULL;
 
   return queue;
 }
 
-int cola_es_vacia(Cola* queue) {
+int cola_es_vacia(Cola queue) {
   return queue == NULL || queue->inicio == NULL;
 }
 
-ITree cola_primero(Cola* queue) {
+ITree cola_primero(Cola queue) {
   return cola_es_vacia(queue) ? NULL : queue->inicio->dato;
 }
 
-Cola* cola_encolar(Cola* queue, ITree data) {
+Cola cola_encolar(Cola queue, ITree data) {
   if(data == NULL || queue == NULL)
     return NULL;
   SNodo* newNode = malloc(sizeof(SNodo));
@@ -35,7 +35,7 @@ Cola* cola_encolar(Cola* queue, ITree data) {
     return queue;
 }
 
-void cola_desencolar(Cola* queue) {
+void cola_desencolar(Cola queue) {
   if(!cola_es_vacia(queue)) {
     SNodo* temp = queue->inicio;
     queue->inicio = queue->inicio->sig;
@@ -45,7 +45,7 @@ void cola_desencolar(Cola* queue) {
   }
 }
 
-void cola_destruir(Cola* queue) {
+void cola_destruir(Cola queue) {
   SNodo* temp;
   while(queue->inicio != NULL) {
     temp = queue->inicio;

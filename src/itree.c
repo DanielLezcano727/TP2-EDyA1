@@ -87,7 +87,7 @@ ITree itree_balancear_der(ITree arbol){
 ITree itree_insertar(ITree arbol, Interval intervalo) {
   if(arbol == NULL){
     arbol = malloc(sizeof(INode));
-    arbol->intervalo = malloc(sizeof(IntervalStruct));
+    arbol->intervalo = malloc(sizeof(Intervalo));
     arbol->intervalo->bgn = intervalo->bgn;
     arbol->intervalo->end = intervalo->end;
     arbol->maySub = intervalo->end;
