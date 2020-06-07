@@ -5,6 +5,8 @@
 #include "itree.h"
 
 #define CANT_OPCIONES 6
+#define MAX_DIGITS_DOUBLE 320
+
 #define OPCION_INCORRECTA -1
 #define FORMATO_INTERVALO_INCORRECTO -2
 #define DATOS_INNECESARIOS -3
@@ -55,7 +57,7 @@ int get_intervalo(Interval intervalo, int opcion){
 
 void interprete(char *opciones[], int cant_opciones){
   int end = 0, opcion;
-  char buf[100];
+  char buf[MAX_DIGITS_DOUBLE * 2 + 20];
   char* ptr;
 
   Interval intervalo = malloc(sizeof(Intervalo)), res;

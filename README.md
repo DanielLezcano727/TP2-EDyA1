@@ -25,9 +25,9 @@
  - [X] Es necesario chequear que los datos dados (por ejemplo, intervalos a busar o intervalos para el arbol) esten bien generados?
  - [X] Usar punteros para estructura Intervalos
  - [X] Es necesario validar que los intervalos sean correctos en las funciones itree? (Solo se usara desde el interprete o hay que hacer eso tambien por si se importa la libreria de itree?)
+ - [X] Cual es el maximo numero que debemos considerar que nos pueden ingresar?
+ - [X] Esta mal aceptar los intervalos sin un espacio en el medio? (Por ahora aceptamos las dos opciones)
  - [ ] IMPORTANTE: consultar/buscar sobre implementacion de itree_insertar, quizas no debería rebalancear recursivo hacia arriba
- - [ ] Cual es el maximo numero que debemos considerar que nos pueden ingresar?
- - [ ] Esta mal aceptar los intervalos sin un espacio en el medio? (Por ahora aceptamos las dos opciones)
 
 ## Decisiones de diseño:
  - Crear funcion itree_crear_nodo para aligerar itree_insertar
