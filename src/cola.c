@@ -20,34 +20,34 @@ ITree cola_primero(Cola queue) {
 }
 
 Cola cola_encolar(Cola queue, ITree data) {
-  if(data == NULL || queue == NULL)
+  if (data == NULL || queue == NULL)
     return NULL;
-  SNodo* newNode = malloc(sizeof(SNodo));
+  SNodo *newNode = malloc(sizeof(SNodo));
   newNode->dato = data;
   newNode->sig = NULL;
-  if(cola_es_vacia(queue))
+  if (cola_es_vacia(queue))
     queue->inicio = newNode;
   else
     queue->fin->sig = newNode;
-    
+
   queue->fin = newNode;
 
-    return queue;
+  return queue;
 }
 
 void cola_desencolar(Cola queue) {
-  if(!cola_es_vacia(queue)) {
-    SNodo* temp = queue->inicio;
+  if (!cola_es_vacia(queue)) {
+    SNodo *temp = queue->inicio;
     queue->inicio = queue->inicio->sig;
-    if(queue->inicio == NULL)
+    if (queue->inicio == NULL)
       queue->fin = NULL;
     free(temp);
   }
 }
 
 void cola_destruir(Cola queue) {
-  SNodo* temp;
-  while(queue->inicio != NULL) {
+  SNodo *temp;
+  while (queue->inicio != NULL) {
     temp = queue->inicio;
     queue->inicio = queue->inicio->sig;
     free(temp);

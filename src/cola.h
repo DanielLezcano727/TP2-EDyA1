@@ -10,7 +10,7 @@ typedef struct _SNodo {
 typedef struct _PunterosCola {
   SNodo *inicio;
   SNodo *fin;
-}PunterosCola;
+} PunterosCola;
 
 typedef PunterosCola *Cola;
 
@@ -26,4 +26,4 @@ void cola_desencolar(Cola queue);
 
 void cola_destruir(Cola queue);
 
-#endif /* __COLA_H__ */
+#endif                          /* __COLA_H__ */

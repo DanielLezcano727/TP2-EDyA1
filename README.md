@@ -10,9 +10,9 @@
  - [X] Repensar nombres estructuras
  - [X] Hacer consultas para no tomar decisiones de diseño :)
  - [X] No insertar elementos iguales
+ - [X] Pasar codigo por programa convenciones
  - [ ] Buscar implementaciones de eliminar
  - [ ] Testear TODOS los casos posibles
- - [ ] Pasar codigo por programa convenciones
  - [ ] Hacer informe
 
  ## Notas para el TP (a implementar)
@@ -37,3 +37,7 @@
  - Tener una estructura intervalo nos sirve para la funcion visitante (su signatura)
  - Explicar el problema de strtok que tuvimos (No toma el primer caracter)
  - Explicar por que elegimos imprimirlo en pre order (Es una forma sencilla de ver si esta balanceado) (Se puede ver si esta balanceado con otro tipo de recorrido? Creo que no)
+ - Agregar lo del maximo double
+ - Agregar que strtod ya lee en notacion cientifica
+ - ¿Intento de strtok que no funciono?
+ - tutorialspoint maximo double, wikipedia

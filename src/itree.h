@@ -4,20 +4,18 @@
 typedef struct _Intervalo {
   double bgn;
   double end;
-}Intervalo;
+} Intervalo;
 
 typedef Intervalo *Interval;
 
 typedef struct _INode {
   Interval intervalo;
   double maySub;
-  struct _INode* left;
-  struct _INode* right; 
-}INode;
+  struct _INode *left;
+  struct _INode *right;
+} INode;
 
 typedef INode *ITree;
-
-// typedef void (*FuncionVisitante) (ITree dato);
 
 typedef void (*FuncionVisitante) (Interval dato);
 
