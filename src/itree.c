@@ -65,7 +65,7 @@ ITree itree_rotacion_simple_izq(ITree arbol) {
 }
 
 ITree itree_balancear_izq(ITree arbol) {
-  if (itree_balance_factor(arbol->left) < 0)
+  if (itree_balance_factor(arbol->left) <= 0)
     arbol = itree_rotacion_simple_der(arbol);
   else {
     arbol->left = itree_rotacion_simple_izq(arbol->left);
@@ -75,7 +75,7 @@ ITree itree_balancear_izq(ITree arbol) {
 }
 
 ITree itree_balancear_der(ITree arbol) {
-  if (itree_balance_factor(arbol->right) > 0)
+  if (itree_balance_factor(arbol->right) >= 0)
     arbol = itree_rotacion_simple_izq(arbol);
   else {
     arbol->right = itree_rotacion_simple_der(arbol->right);
@@ -84,7 +84,7 @@ ITree itree_balancear_der(ITree arbol) {
   return arbol;
 }
 
-ITree create_node(Interval intervalo){
+ITree create_node(Interval intervalo) {
   ITree nodo = malloc(sizeof(INode));
   nodo->intervalo = malloc(sizeof(Intervalo));
   nodo->intervalo->bgn = intervalo->bgn;
@@ -95,7 +95,7 @@ ITree create_node(Interval intervalo){
   return nodo;
 }
 
-int get_direccion_arbol(Interval nodo, Interval intervalo){
+int get_direccion_arbol(Interval nodo, Interval intervalo) {
   int inicio = intervalo->bgn - nodo->bgn;
   return inicio == 0 ? intervalo->end - nodo->end : inicio;
 }
@@ -110,7 +110,7 @@ ITree itree_insertar(ITree arbol, Interval intervalo) {
     arbol->maySub = itree_max_sub(arbol);
     if (itree_balance_factor(arbol) < -1)
       arbol = itree_balancear_izq(arbol);
-  } else if(posicion > 0){
+  } else if (posicion > 0) {
     arbol->right = itree_insertar(arbol->right, intervalo);
     arbol->maySub = itree_max_sub(arbol);
     if (itree_balance_factor(arbol) > 1)
@@ -121,7 +121,7 @@ ITree itree_insertar(ITree arbol, Interval intervalo) {
 }
 
 ITree itree_minimo(ITree arbol) {
-  while(arbol->left != NULL)
+  while (arbol->left != NULL)
     arbol = arbol->left;
   return arbol;
 }
@@ -131,8 +131,8 @@ ITree itree_eliminar(ITree arbol, Interval intervalo) {
     return arbol;
 
   int posicion = get_direccion_arbol(arbol->intervalo, intervalo);
-  
-  if(posicion == 0){
+
+  if (posicion == 0) {
     ITree aux = arbol;
     if (arbol->left != NULL && arbol->right != NULL) {
       aux = itree_minimo(arbol->right);
@@ -150,7 +150,7 @@ ITree itree_eliminar(ITree arbol, Interval intervalo) {
       free(aux->intervalo);
       free(aux);
     }
-  } else if (posicion < 0)) {
+  } else if (posicion < 0) {
     arbol->left = itree_eliminar(arbol->left, intervalo);
     arbol->maySub = itree_max_sub(arbol);
     if (itree_balance_factor(arbol) > 1)
