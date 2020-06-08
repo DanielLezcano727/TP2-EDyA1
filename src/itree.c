@@ -121,8 +121,8 @@ ITree itree_insertar(ITree arbol, Interval intervalo) {
 }
 
 ITree itree_minimo(ITree arbol) {
-  if (arbol->left != NULL)
-    return itree_minimo(arbol->left);
+  while(arbol->left != NULL)
+    arbol = arbol->left;
   return arbol;
 }
 
