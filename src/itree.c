@@ -174,7 +174,8 @@ Interval itree_intersectar(ITree arbol, Interval intervalo) {
       return arbol->intervalo;
     if (arbol->left != NULL && arbol->left->maySub >= intervalo->bgn)
       return itree_intersectar(arbol->left, intervalo);
-    return itree_intersectar(arbol->right, intervalo);
+    if (intervalo->end > arbol->intervalo->bgn)
+      return itree_intersectar(arbol->right, intervalo);
   }
   return NULL;
 }
