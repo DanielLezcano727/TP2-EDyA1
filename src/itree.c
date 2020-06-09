@@ -95,8 +95,8 @@ ITree create_node(Interval intervalo) {
   return nodo;
 }
 
-int get_direccion_arbol(Interval nodo, Interval intervalo) {
-  int inicio = intervalo->bgn - nodo->bgn;
+double get_direccion_arbol(Interval nodo, Interval intervalo) {
+  double inicio = intervalo->bgn - nodo->bgn;
   return inicio == 0 ? intervalo->end - nodo->end : inicio;
 }
 
@@ -104,7 +104,7 @@ ITree itree_insertar(ITree arbol, Interval intervalo) {
   if (arbol == NULL)
     return create_node(intervalo);
 
-  int posicion = get_direccion_arbol(arbol->intervalo, intervalo);
+  double posicion = get_direccion_arbol(arbol->intervalo, intervalo);
   if (posicion < 0) {
     arbol->left = itree_insertar(arbol->left, intervalo);
     arbol->maySub = itree_max_sub(arbol);
@@ -130,7 +130,7 @@ ITree itree_eliminar(ITree arbol, Interval intervalo) {
   if (arbol == NULL)
     return arbol;
 
-  int posicion = get_direccion_arbol(arbol->intervalo, intervalo);
+  double posicion = get_direccion_arbol(arbol->intervalo, intervalo);
 
   if (posicion == 0) {
     ITree aux = arbol;
