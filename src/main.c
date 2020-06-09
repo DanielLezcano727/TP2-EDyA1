@@ -82,6 +82,11 @@ void interprete(char *opciones[], int cantOpciones) {
 
     if (0 <= opcion && opcion <= 2)
       opcion = get_intervalo(intervalo, opcion);
+    else if (3 <= opcion && opcion <= 5){
+      ptr = strtok(NULL, "");
+      if (ptr != NULL)
+        opcion = DATOS_INNECESARIOS;
+    }
 
     switch (opcion) {
     case 0:
