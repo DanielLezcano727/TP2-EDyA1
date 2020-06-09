@@ -14,10 +14,16 @@
 #define FALTA_OPCION -5
 #define FALTA_INTERVALO -6
 
+/**
+ * Imprime en pantalla los extremos del intervalo dado
+**/
 static void imprimir_intervalo(Interval intervalo) {
   printf("[%g, %g] ", intervalo->bgn, intervalo->end);
 }
 
+/**
+ * Verifica que la opcion indicada en la entrada por terminal sea apta
+**/
 int verificar_opcion(char opcion[], char *opciones[], int cantOpciones) {
   if (opcion == NULL)
     return FALTA_OPCION;
@@ -26,6 +32,10 @@ int verificar_opcion(char opcion[], char *opciones[], int cantOpciones) {
   return i == cantOpciones ? OPCION_INCORRECTA : i;
 }
 
+/**
+ * Procesa la entrada por terminal para obtener el intervalo en double
+ * Tambien retorna los errores correspondientes de haberlos
+**/
 int get_intervalo(Interval intervalo, int opcion) {
   char *buf = strtok(NULL, "");
   if (buf == NULL)
@@ -50,7 +60,10 @@ int get_intervalo(Interval intervalo, int opcion) {
   return intervalo->bgn <= intervalo->end ? opcion : INICIO_MAYOR_QUE_FIN;
 }
 
-
+/**
+ * Recibe un array de strings que contienen los distintos comandos que se aceptan y la cantidad de comandos que hay
+ * y otorga un interprete para la utilizacion de los arboles de intervalos proveidas por itree
+**/
 void interprete(char *opciones[], int cantOpciones) {
   int end = 0, opcion;
   char buf[MAX_DIGITS_DOUBLE * 2 + 20];
